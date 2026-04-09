@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/Layer 2.png') }}">
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>NeuralMail | Legal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="{{ url_for('static', filename='js/alerts.js') }}"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c799ff",
+                        "secondary": "#4af8e3",
+                        "background": "#0b0e14",
+                        "surface": "#10131a",
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "mono": ["DM Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scroll-behavior: smooth; }
+        body {
+            background-color: #0b0e14;
+            color: #ecedf6;
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Animated background grid */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(199,153,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(199,153,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Tab styles */
+        .tab-btn {
+            position: relative;
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #525866;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn:hover { color: #c799ff; }
+        .tab-btn.active {
+            color: #c799ff;
+            border-bottom-color: #c799ff;
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: #c799ff;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #c799ff;
+        }
+
+        /* Section content */
+        .tab-content { display: none; }
+        .tab-content.active {
+            display: block;
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section cards */
+        .legal-section {
+            background: rgba(16, 19, 26, 0.6);
+            border: 1px solid rgba(199, 153, 255, 0.06);
+            border-radius: 1.5rem;
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.25rem;
+            transition: border-color 0.3s;
+        }
+        .legal-section:hover {
+            border-color: rgba(199, 153, 255, 0.15);
+        }
+
+        .section-number {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            color: #c799ff;
+            opacity: 0.6;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-body {
+            font-size: 0.875rem;
+            color: #8892a4;
+            line-height: 1.8;
+        }
+
+        .section-body ul {
+            margin-top: 0.75rem;
+            padding-left: 1.25rem;
+            list-style: none;
+        }
+        .section-body ul li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.4rem;
+        }
+        .section-body ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: #c799ff;
+            font-weight: 700;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: rgba(199, 153, 255, 0.05);
+            border: 1px solid rgba(199, 153, 255, 0.15);
+            border-radius: 1rem;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            font-size: 0.8rem;
+            color: #c799ff;
+            line-height: 1.7;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c799ff40; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c799ff80; }
+
+        /* TOC sidebar */
+        .toc-item {
+            font-size: 0.7rem;
+            color: #525866;
+            padding: 0.4rem 0.75rem;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-family: 'DM Mono', monospace;
+            letter-spacing: 0.05em;
+        }
+        .toc-item:hover, .toc-item.active {
+            color: #c799ff;
+            border-left-color: #c799ff;
+        }
+
+        /* Badge */
+        .version-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            background: rgba(74, 248, 227, 0.08);
+            border: 1px solid rgba(74, 248, 227, 0.2);
+            color: #4af8e3;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.4rem;
+            letter-spacing: 0.1em;
+        }
+        /* Tab styles mobile fix */
+.tab-btn {
+    padding: 0.75rem 1rem; /* Padding kam ki mobile ke liye */
+    font-size: 0.65rem; /* Font size thoda chota */
+    flex: 1; /* Dono buttons barabar jagah lein */
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .tab-btn {
+        padding: 0.75rem 2rem;
+        font-size: 0.75rem;
+        flex: none;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <!-- Background effects -->
+    <div class="bg-grid"></div>
+    <div class="glow-orb w-[600px] h-[600px] bg-primary/10 top-[-200px] right-[-200px]"></div>
+    <div class="glow-orb w-[400px] h-[400px] bg-secondary/5 bottom-[0] left-[-100px]"></div>
+
+    <!-- Navbar -->
+    <nav class="relative z-10 border-b border-white/5 bg-[#0b0e14]/80 backdrop-blur-xl sticky top-0">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity">
+            <img src="{{ url_for('static', filename='img/Layer 2.png') }}" alt="NeuralMail Logo" class="w-8 h-8 md:w-9 md:h-9 flex-shrink-0">
+            <span class="font-headline font-black text-base md:text-lg tracking-tighter text-white">NeuralMail</span>
+        </a>
+
+        <div class="flex items-center gap-2 md:gap-4">
+            <span class="version-badge hidden md:inline-flex">v1.0 · 2026</span>
+            
+            <div class="flex items-center bg-white/5 rounded-xl p-1 border border-white/5">
+                <a href="/dashboard" class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors px-3 py-1.5 md:px-4 md:py-2">
+                    Dashboard <span class="hidden sm:inline">→</span>
+                </a>
+                
+                <button title="Version v1.0" class="md:hidden flex items-center justify-center w-8 h-8 text-primary/60 hover:text-primary transition-colors border-l border-white/10 ml-1" onclick="alert('NeuralMail Engine\nVersion: v1.0\nBuild: 2026')">
+                    <i class="fa-solid fa-circle-info text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+   
+
+    <!-- Hero Header -->
+    <div class="relative z-10 max-w-6xl mx-auto px-8 pt-16 pb-12 text-center">
+        <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-primary opacity-60 mb-4">Legal Documents</p>
+        <h1 class="font-headline font-black text-5xl md:text-6xl tracking-tighter text-white mb-4">
+            Transparency <span class="text-primary">First.</span>
+        </h1>
+        <p class="text-slate-500 text-base max-w-md mx-auto leading-relaxed">
+            We believe in full clarity. Read how NeuralMail handles your data and what governs your use of our platform.
+        </p>
+
+        <!-- Last updated -->
+        <div class="flex items-center justify-center gap-2 mt-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+            <p class="text-xs text-slate-600 font-mono">Last updated: March 28, 2026</p>
+        </div>
+    </div>
+
+    <!-- Tab Bar -->
+     <script>
+    // 1. URL se check karein ke kaunsa tab kholna hai
+    window.onload = function() {
+        const path = window.location.pathname;
+        if (path.includes('terms')) {
+            // Terms wala tab activate karein
+            const termsBtn = document.querySelector('button[onclick*="terms"]');
+            switchTab('terms', termsBtn);
+        } else {
+            // By default Privacy
+            const privacyBtn = document.querySelector('button[onclick*="privacy"]');
+            switchTab('privacy', privacyBtn);
+        }
+    };
+
+    function switchTab(tabName, btn) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        // Hide both TOCs
+        const tocPrivacy = document.getElementById('toc-privacy');
+        const tocTerms = document.getElementById('toc-terms');
+        if(tocPrivacy) tocPrivacy.classList.add('hidden');
+        if(tocTerms) tocTerms.classList.add('hidden');
+
+        // Show selected
+        const activeTab = document.getElementById('tab-' + tabName);
+        const activeToc = document.getElementById('toc-' + tabName);
+        
+        if(activeTab) activeTab.classList.add('active');
+        if(btn) btn.classList.add('active');
+        if(activeToc) activeToc.classList.remove('hidden');
+
+        // URL ko update karein bina page refresh kiye (Optional but Pro)
+        window.history.pushState({}, '', '/' + tabName);
+    }
+
+    // Baqi apka scroll aur observer logic waisa hi rahega...
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+</script>
+    <div class="relative z-10 max-w-6xl mx-auto px-8">
+        <div class="flex border-b border-white/5 mb-12">
+            <button class="tab-btn active" onclick="switchTab('privacy', this)">
+                <i class="fa-solid fa-shield-halved mr-2 text-[10px]"></i>Privacy Policy
+            </button>
+            <button class="tab-btn" onclick="switchTab('terms', this)">
+                <i class="fa-solid fa-file-contract mr-2 text-[10px]"></i>Terms & Conditions
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-8 pb-24">
+        <div class="grid lg:grid-cols-[220px_1fr] gap-10 items-start">
+
+            <!-- TOC Sidebar (desktop) -->
+            <aside class="hidden lg:block sticky top-28 space-y-1">
+                <p class="text-[9px] uppercase tracking-widest text-slate-600 font-bold mb-3 px-3">On This Page</p>
+                <div id="toc-privacy">
+                    <div class="toc-item active" onclick="scrollToSection('p1')">01 · Overview</div>
+                    <div class="toc-item" onclick="scrollToSection('p2')">02 · Data We Collect</div>
+                    <div class="toc-item" onclick="scrollToSection('p3')">03 · How We Use It</div>
+                    <div class="toc-item" onclick="scrollToSection('p4')">04 · Third Parties</div>
+                    <div class="toc-item" onclick="scrollToSection('p5')">05 · Data Storage</div>
+                    <div class="toc-item" onclick="scrollToSection('p6')">06 · Your Rights</div>
+                    <div class="toc-item" onclick="scrollToSection('p7')">07 · Contact</div>
+                </div>
+                <div id="toc-terms" class="hidden">
+                    <div class="toc-item active" onclick="scrollToSection('t1')">01 · Agreement</div>
+                    <div class="toc-item" onclick="scrollToSection('t2')">02 · Eligibility</div>
+                    <div class="toc-item" onclick="scrollToSection('t3')">03 · Acceptable Use</div>
+                    <div class="toc-item" onclick="scrollToSection('t4')">04 · AI Content</div>
+                    <div class="toc-item" onclick="scrollToSection('t5')">05 · Accounts</div>
+                    <div class="toc-item" onclick="scrollToSection('t6')">06 · Termination</div>
+                    <div class="toc-item" onclick="scrollToSection('t7')">07 · Liability</div>
+                    <div class="toc-item" onclick="scrollToSection('t8')">08 · Changes</div>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <div>
+
+                <!-- ===================== PRIVACY POLICY ===================== -->
+                <div id="tab-privacy" class="tab-content active">
+
+                    <div class="highlight-box mb-8">
+                        <i class="fa-solid fa-circle-info mr-2"></i>
+                        NeuralMail is an AI-powered email generation tool. We only collect what is necessary to operate the service. We do not sell your data — ever.
+                    </div>
+
+                    <div id="p1" class="legal-section">
+                        <p class="section-number">01 / OVERVIEW</p>
+                        <h2 class="section-title">What Is This Policy?</h2>
+                        <p class="section-body">
+                            This Privacy Policy explains how NeuralMail ("we", "our", "us") collects, uses, and protects the information you provide when you use our platform. By creating an account or using our services, you agree to the practices described in this document.
+                            <br><br>
+                            We are committed to maintaining your trust and keeping your personal information secure.
+                        </p>
+                    </div>
+
+                    <div id="p2" class="legal-section">
+                        <p class="section-number">02 / DATA COLLECTION</p>
+                        <h2 class="section-title">Information We Collect</h2>
+                        <p class="section-body">
+                            We collect information in the following ways:
+                            <ul>
+                                <li><strong class="text-white">Account Data:</strong> Your full name, company name, and email address provided at signup.</li>
+                                <li><strong class="text-white">Authentication Data:</strong> Your password, stored as a secure cryptographic hash (bcrypt). We never store plaintext passwords.</li>
+                                <li><strong class="text-white">Usage Data:</strong> Campaign logs, generated email content, target URLs, and timestamps — linked to your account to provide history and analytics.</li>
+                                <li><strong class="text-white">SMTP Credentials (Optional):</strong> If you provide your email SMTP details for sending, these are stored encrypted and used only to dispatch emails on your behalf.</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div id="p3" class="legal-section">
+                        <p class="section-number">03 / DATA USAGE</p>
+                        <h2 class="section-title">How We Use Your Information</h2>
+                        <p class="section-body">
+                            Your data is used exclusively to deliver and improve the NeuralMail service:
+                            <ul>
+                                <li>To authenticate your identity and maintain your session</li>
+                                <li>To generate AI-powered email drafts using your provided context (website URL)</li>
+                                <li>To display your campaign history, statistics, and analytics dashboard</li>
+                                <li>To allow you to send emails via your configured SMTP credentials</li>
+                                <li>To improve platform performance and detect technical issues</li>
+                            </ul>
+                            <br>
+                            We do <strong class="text-white">not</strong> use your data for advertising, profiling, or selling to third parties.
+                        </p>
+                    </div>
+
+                    <div id="p4" class="legal-section">
+                        <p class="section-number">04 / THIRD PARTIES</p>
+                        <h2 class="section-title">External Services</h2>
+                        <p class="section-body">
+                            NeuralMail integrates with the following third-party services:
+                            <ul>
+                                <li><strong class="text-white">Google Gemini AI API:</strong> Your target website URL is sent to Gemini to generate email content. No personal account data is shared. Please review <a href="https://ai.google.dev/terms" target="_blank" class="text-primary underline">Google's AI Terms</a>.</li>
+                                <li><strong class="text-white">Gmail (Optional):</strong> When you use "Open in Gmail", you are redirected to Gmail's own interface in a new tab. NeuralMail does not send or access your Gmail account directly.</li>
+                            </ul>
+                            <br>
+                            We do not use any advertising networks, analytics trackers, or data brokers.
+                        </p>
+                    </div>
+
+                    <div id="p5" class="legal-section">
+                        <p class="section-number">05 / DATA STORAGE</p>
+                        <h2 class="section-title">Where Your Data Lives</h2>
+                        <p class="section-body">
+                            All data is stored locally in a SQLite database on the server running NeuralMail. Your data is not replicated to external cloud databases by default.
+                            <br><br>
+                            We retain campaign logs for up to <strong class="text-white">20 most recent entries</strong> per user. You may delete any log entry at any time from your dashboard. Account data is retained for as long as your account is active.
+                        </p>
+                    </div>
+
+                    <div id="p6" class="legal-section">
+                        <p class="section-number">06 / YOUR RIGHTS</p>
+                        <h2 class="section-title">Control Over Your Data</h2>
+                        <p class="section-body">
+                            You have the following rights at any time:
+                            <ul>
+                                <li>Access the data associated with your account</li>
+                                <li>Edit your profile name and role from the dashboard</li>
+                                <li>Delete individual campaign log entries</li>
+                                <li>Request complete account deletion by contacting us</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div id="p7" class="legal-section">
+                        <p class="section-number">07 / CONTACT</p>
+                        <h2 class="section-title">Questions or Concerns?</h2>
+                        <p class="section-body">
+                            If you have any questions about this Privacy Policy or how your data is handled, please reach out to us at:
+                            <br><br>
+                            <span class="text-primary font-mono">support@neuralmail.app</span>
+                            <br><br>
+                            We aim to respond to all privacy-related inquiries within <strong class="text-white">3 business days</strong>.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- ===================== TERMS & CONDITIONS ===================== -->
+                <div id="tab-terms" class="tab-content">
+
+                    <div class="highlight-box mb-8">
+                        <i class="fa-solid fa-circle-exclamation mr-2"></i>
+                        By using NeuralMail, you agree to these terms. Please read them carefully — they define what you can and cannot do on our platform.
+                    </div>
+
+                    <div id="t1" class="legal-section">
+                        <p class="section-number">01 / AGREEMENT</p>
+                        <h2 class="section-title">Acceptance of Terms</h2>
+                        <p class="section-body">
+                            These Terms and Conditions ("Terms") govern your access to and use of the NeuralMail platform. By registering an account or using any part of the service, you confirm that you have read, understood, and agree to be bound by these Terms.
+                            <br><br>
+                            If you do not agree, please do not use NeuralMail.
+                        </p>
+                    </div>
+
+                    <div id="t2" class="legal-section">
+                        <p class="section-number">02 / ELIGIBILITY</p>
+                        <h2 class="section-title">Who Can Use NeuralMail</h2>
+                        <p class="section-body">
+                            You must be at least <strong class="text-white">16 years of age</strong> to use NeuralMail. By using the platform, you represent that you meet this requirement. If you are using the platform on behalf of a business or organization, you represent that you have the authority to bind that entity to these Terms.
+                        </p>
+                    </div>
+
+                    <div id="t3" class="legal-section">
+                        <p class="section-number">03 / ACCEPTABLE USE</p>
+                        <h2 class="section-title">What You May Not Do</h2>
+                        <p class="section-body">
+                            You agree not to use NeuralMail to:
+                            <ul>
+                                <li>Send spam, phishing emails, or unsolicited bulk messages</li>
+                                <li>Impersonate any individual, company, or organization</li>
+                                <li>Violate any applicable local, national, or international law</li>
+                                <li>Circumvent or attempt to reverse-engineer any part of the platform</li>
+                                <li>Use the AI generator to produce harmful, deceptive, or abusive content</li>
+                                <li>Share your account credentials with others</li>
+                            </ul>
+                            <br>
+                            We reserve the right to suspend or permanently ban accounts found in violation of these rules.
+                        </p>
+                    </div>
+
+                    <div id="t4" class="legal-section">
+                        <p class="section-number">04 / AI CONTENT</p>
+                        <h2 class="section-title">AI-Generated Emails</h2>
+                        <p class="section-body">
+                            NeuralMail uses Google Gemini AI to generate email drafts. You acknowledge that:
+                            <ul>
+                                <li>AI-generated content may not always be accurate or suitable — always review before sending</li>
+                                <li>You are solely responsible for any emails you send using content generated by NeuralMail</li>
+                                <li>NeuralMail is not liable for outcomes resulting from the use of AI-generated emails</li>
+                                <li>Generated content is owned by you and we claim no copyright over it</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div id="t5" class="legal-section">
+                        <p class="section-number">05 / ACCOUNTS</p>
+                        <h2 class="section-title">Account Responsibility</h2>
+                        <p class="section-body">
+                            You are responsible for maintaining the security of your account credentials. NeuralMail will not be liable for any loss or damage arising from unauthorized access to your account.
+                            <br><br>
+                            You must notify us immediately if you believe your account has been compromised at <span class="text-primary font-mono">support@neuralmail.app</span>.
+                        </p>
+                    </div>
+
+                    <div id="t6" class="legal-section">
+                        <p class="section-number">06 / TERMINATION</p>
+                        <h2 class="section-title">Account Suspension & Deletion</h2>
+                        <p class="section-body">
+                            We reserve the right to suspend or terminate your account at any time, with or without notice, if we determine that you have violated these Terms or if continued access poses a risk to the platform or other users.
+                            <br><br>
+                            You may request deletion of your account at any time by contacting us. Upon deletion, your data will be permanently removed within <strong class="text-white">7 business days</strong>.
+                        </p>
+                    </div>
+
+                    <div id="t7" class="legal-section">
+                        <p class="section-number">07 / LIABILITY</p>
+                        <h2 class="section-title">Limitation of Liability</h2>
+                        <p class="section-body">
+                            NeuralMail is provided on an "as is" basis without warranties of any kind. We do not guarantee uninterrupted access, error-free operation, or specific results from AI email generation.
+                            <br><br>
+                            To the maximum extent permitted by applicable law, NeuralMail shall not be liable for any indirect, incidental, or consequential damages arising out of your use of the platform.
+                        </p>
+                    </div>
+
+                    <div id="t8" class="legal-section">
+                        <p class="section-number">08 / CHANGES</p>
+                        <h2 class="section-title">Updates to These Terms</h2>
+                        <p class="section-body">
+                            We may revise these Terms at any time. When we do, we will update the "Last updated" date at the top of this page. Continued use of NeuralMail after changes are posted constitutes your acceptance of the revised Terms.
+                            <br><br>
+                            We encourage you to review this page periodically to stay informed.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-white/5 mt-8">
+        <div class="max-w-6xl mx-auto px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+           <!-- <div class="flex items-center gap-3">-->
+                <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+  <img src="{{ url_for('static', filename='img/Layer 2.png') }}" alt="NeuralMail Logo" class="w-8 h-8 flex-shrink-0">
+  <span class="text-slate-600 text-xs font-mono">© 2026 NeuralMail. All rights reserved.</span>
+</a>
+            <!-- <div class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center font-black text-[#440080] italic text-sm">N</div>
+                © 2025 NeuralMail. All rights reserved.</span>
+            </div>-->
+            <div class="flex items-center gap-6 text-[11px] text-slate-600">
+                <a href="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a>
+                <a href="/terms" class="hover:text-primary transition-colors">Terms & Conditions</a>
+                <a href="/dashboard" class="hover:text-primary transition-colors">Dashboard</a>
+                <a href="/" class="hover:text-primary transition-colors">Home</a>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabName, btn) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('toc-privacy').classList.add('hidden');
+            document.getElementById('toc-terms').classList.add('hidden');
+
+            // Show selected
+            document.getElementById('tab-' + tabName).classList.add('active');
+            btn.classList.add('active');
+            document.getElementById('toc-' + tabName).classList.remove('hidden');
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Update TOC active state
+                const tocPrefix = id[0]; // 'p' or 't'
+                const tocId = tocPrefix === 'p' ? 'toc-privacy' : 'toc-terms';
+                document.querySelectorAll(`#${tocId} .toc-item`).forEach(i => i.classList.remove('active'));
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // Highlight TOC item on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    const prefix = id[0];
+                    const tocId = prefix === 'p' ? 'toc-privacy' : 'toc-terms';
+                    document.querySelectorAll(`#${tocId} .toc-item`).forEach(i => i.classList.remove('active'));
+                    const matching = [...document.querySelectorAll(`#${tocId} .toc-item`)]
+                        .find(i => i.getAttribute('onclick')?.includes(id));
+                    if (matching) matching.classList.add('active');
+                }
+            });
+        }, { threshold: 0.4 });
+
+        document.querySelectorAll('.legal-section[id]').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

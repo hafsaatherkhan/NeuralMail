@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/Layer 2.png') }}">
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>NeuralMail | Create Account</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="{{ url_for('static', filename='js/alerts.js') }}"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c799ff",
+                        "secondary": "#4af8e3",
+                        "background": "#0b0e14",
+                        "surface-container": "#161a21",
+                        "outline": "#73757d",
+                        "on-primary": "#440080"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<script src="static/js/auth.js"></script>
+    <style>
+        body { background-color: #0b0e14; color: #ecedf6; font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(22, 26, 33, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(199, 153, 255, 0.1);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(199, 153, 255, 0.15);
+            border-color: #c799ff;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+    
+    <div class="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-primary/10 blur-[130px] rounded-full animate-pulse"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-secondary/5 blur-[100px] rounded-full"></div>
+
+    <div id="signupCard" class="w-full max-w-lg glass-card rounded-[3rem] p-10 z-10 opacity-0 translate-y-10">
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-primary to-secondary p-[1px] mb-4">
+                <div class="w-full h-full bg-background rounded-2xl flex items-center justify-center">
+                    <span class="text-primary font-black text-xl font-headline italic">N</span>
+                </div>
+            </div>
+            <h1 class="text-3xl font-black font-headline tracking-tighter">Create Account</h1>
+            <p class="text-slate-400 text-sm mt-2 font-medium">Start automating your outreach today</p>
+        </div>
+
+        <form class="space-y-5"onsubmit="handleSignup(event)">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Full Name</label>
+                    <input type="text" placeholder="Hafsa" 
+                        class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all text-sm">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Company</label>
+                    <input type="text" placeholder="Tech Studio" 
+                        class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all text-sm">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Business Email</label>
+                <input type="email" placeholder="hafsa@developer.com" 
+                    class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all text-sm">
+            </div>
+
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Password</label>
+                <input type="password" placeholder="••••••••" 
+                    class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all text-sm">
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" class="w-full bg-primary text-on-primary font-black py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-xs">
+                    Create Free Account
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-8">
+            <div class="relative flex items-center justify-center mb-6">
+                <div class="border-t border-white/5 w-full"></div>
+                <span class="bg-[#161a21] px-4 text-[10px] font-black uppercase text-slate-600 absolute italic font-space-grotesk">Fast Track</span>
+            </div>
+
+            
+        </div>
+
+        <p class="text-center mt-8 text-sm text-slate-500 font-medium">
+            Already have an account? <a href="/login" class="text-primary font-bold hover:text-secondary transition underline underline-offset-4">Login here</a>
+        </p>
+    </div>
+
+    <script>
+    async function handleSignup(event) {
+        event.preventDefault(); // Page reload rokne ke liye
+        
+        // Form se data uthana
+        const fullName = document.querySelector('input[placeholder="Hafsa"]').value;
+        const company = document.querySelector('input[placeholder="Tech Studio"]').value;
+        const email = document.querySelector('input[type="email"]').value;
+        const password = document.querySelector('input[type="password"]').value;
+
+        try {
+            const response = await fetch('/api/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    full_name: fullName,
+                    company: company,
+                    email: email,
+                    password: password
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Account Created Successfully!");
+                window.location.href = "/login"; // Redirect to login
+            } else {
+                alert(data.error || "Signup failed!");
+            }
+        } catch (err) {
+            console.error("Error:", err);
+            alert("Server connection failed!");
+        }
+    }
+
+    // Purana GSAP code yahan rahega...
+    window.onload = () => {
+        gsap.to("#signupCard", { opacity: 1, y: 0, duration: 1, ease: "power4.out" });
+    };
+</script>
+</body>
+</html>

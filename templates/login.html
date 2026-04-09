@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/Layer 2.png') }}">
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>NeuralMail | Sign In</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+   <script src="{{ url_for('static', filename='js/alerts.js') }}"></script>
+   <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c799ff",
+                        "secondary": "#4af8e3",
+                        "background": "#0b0e14",
+                        "surface-container": "#161a21",
+                        "outline": "#73757d"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<script src="static/js/auth.js"></script>
+    <style>
+        body { background-color: #0b0e14; color: #ecedf6; font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(22, 26, 33, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(199, 153, 255, 0.1);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(199, 153, 255, 0.15);
+            border-color: #c799ff;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+    
+    <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/10 blur-[120px] rounded-full"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-secondary/5 blur-[120px] rounded-full"></div>
+
+    <div id="loginCard" class="w-full max-w-md glass-card rounded-[2.5rem] p-10 z-10 opacity-0">
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-primary to-secondary p-[1px] mb-4">
+                <div class="w-full h-full bg-background rounded-2xl flex items-center justify-center">
+                    <span class="text-primary font-black text-2xl font-headline italic">N</span>
+                </div>
+            </div>
+            <h1 class="text-3xl font-black font-headline tracking-tighter">Welcome Back</h1>
+            <p class="text-slate-400 text-sm mt-2">Continue your AI-powered outreach</p>
+        </div>
+
+       <form class="space-y-6" id="loginForm">
+    <div>
+        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 ml-1">Business Email</label>
+        <input type="email" id="email" required placeholder="name@company.com" 
+            class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-4 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all">
+    </div>
+
+    <div>
+        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 ml-1">Password</label>
+        <input type="password" id="password" required placeholder="••••••••" 
+            class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-4 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all">
+    </div>
+
+    <button type="submit" class="w-full bg-primary text-on-primary font-black py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-xs">
+        Sign In to NeuralMail
+    </button>
+    <div>
+    <p class="text-center mt-8 text-sm text-slate-500 font-medium">
+            Donot have an account? <a href="/signup" class="text-primary font-bold hover:text-secondary transition underline underline-offset-4">Sign Up here</a>
+        </p>
+    </div>
+</form>
+
+<script>
+    // GSAP Entrance Animation
+    window.onload = () => {
+        gsap.to("#loginCard", { opacity: 1, y: -20, duration: 1.2, ease: "power4.out" });
+    };
+
+    // Asli Login Logic
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const submitBtn = e.target.querySelector('button');
+
+        submitBtn.innerText = "Verifying Credentials...";
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // SABSE ZAROORI: DB se aaya naya data storage mein save karein
+                localStorage.setItem('user_id', result.user_id);
+                localStorage.setItem('user_name', result.full_name); // Updated Name
+                localStorage.setItem('user_role', result.role);      // Updated Role
+                
+                // Ab dashboard par bhejein
+                window.location.href = "/dashboard";
+            } else {
+                alert(result.message || "Login failed! Please check your email/password.");
+            }
+        } catch (error) {
+            console.error("Login Error:", error);
+            alert("Could not connect to the server. Make sure app.py is running!");
+        } finally {
+            submitBtn.innerText = "Sign In to NeuralMail";
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+/* 1. Reset & Base Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #c799ff;
+    --secondary: #4af8e3;
+    --bg-dark: #0b0e14;
+    --surface: #161a21;
+    --surface-bright: #22262f;
+    --text-main: #ecedf6;
+    --text-dim: #73757d;
+    --glass-border: rgba(199, 153, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Headline Typography */
+h1, h2, h3, h4, .font-headline {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* 3. Reusable Glassmorphism Card */
+.glass-card {
+    background: rgba(22, 26, 33, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* 4. Input Styling (Neural Theme) */
+input[type="text"], 
+input[type="email"], 
+input[type="password"],
+textarea {
+    background: var(--surface-bright) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 12px;
+    color: white !important;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 15px rgba(199, 153, 255, 0.1) !important;
+}
+
+/* 5. Custom Scrollbar (Sleek & Professional) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-bright);
+    border-radius: 10px;
+    border: 2px solid var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* 6. Button Animations */
+.btn-primary {
+    background: var(--primary);
+    color: #440080;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(199, 153, 255, 0.2);
+}
+
+/* 7. Section Transitions */
+.animate-section {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 8. Utility Classes */
+.text-gradient {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bg-glow {
+    position: absolute;
+    filter: blur(120px);
+    z-index: -1;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+/* Cards ke andar scrollbar ko beautiful banayein */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #c799ff; /* Your Primary Purple */
+    border-radius: 10px;
+}
+/* Sidebar and Main Content Layout Fix */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: #0a0a0c; /* Darker theme */
+}
+
+/* Main Content Area */
+main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    max-width: 1200px; /* Desktop par bohot phailne se rokega */
+    margin: 0 auto;
+}
+
+/* History Table Container (Responsive Fix) */
+.table-wrapper {
+    overflow-x: auto; /* Mobile/iPad par table scroll hogi, pichkegi nahi */
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    border: 1px border rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Email Preview Grid (3-Card Layout Fix) */
+#email-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
