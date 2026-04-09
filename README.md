@@ -40,8 +40,8 @@
 
 
 ## Status
-Currently preparing for deployment as a live SaaS application.
+Currently preparing for deployment as a live application.
 Code is being cleaned and will be open-sourced after launch.
 
 ## Author
-**Hafsa Ather Khan** — [LinkedIn](https://linkedin.com/in/hafsaatherkhan) · [GitHub](https://github.com/hafsaatherkhan)
+**Hafsa Ather Khan** — [LinkedIn]([https://pk.linkedin.com/in/hafsa-ather-khan]) · [GitHub](https://github.com/hafsaatherkhan)
