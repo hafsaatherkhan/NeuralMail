@@ -44,4 +44,4 @@ Currently preparing for deployment as a live SaaS application.
 Code is being cleaned and will be open-sourced after launch.
 
 ## Author
-**Hafsa Ather Khan** — [LinkedIn](https://linkedin.com/in/hafsaatherkhan) · [GitHub](https://github.com/hafsa-ather-khan)
+**Hafsa Ather Khan** — [LinkedIn](https://linkedin.com/in/hafsaatherkhan) · [GitHub](https://github.com/hafsaatherkhan)
