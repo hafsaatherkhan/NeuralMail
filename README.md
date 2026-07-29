@@ -1,8 +1,9 @@
-<img width="1364" height="690" alt="image" src="https://github.com/user-attachments/assets/8d3958ec-b9ea-47f2-9edf-54db5f7f8231" />
-
 <div align="center">
 
-<img src="https://placehold.co/900x220/3B091E/E2B8CA?text=NeuralMail&font=roboto" width="100%"/>
+<img width="1364" height="690" alt="image" src="https://github.com/user-attachments/assets/8d3958ec-b9ea-47f2-9edf-54db5f7f8231" />
+
+
+
 
 # ✉️ NeuralMail
 
