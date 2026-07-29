@@ -1,21 +1,33 @@
 <img width="1364" height="690" alt="image" src="https://github.com/user-attachments/assets/8d3958ec-b9ea-47f2-9edf-54db5f7f8231" />
 
+<div align="center">
 
-# NeuralMail
+<img src="https://placehold.co/900x220/3B091E/E2B8CA?text=NeuralMail&font=roboto" width="100%"/>
 
-> AI-powered cold email generator that creates multiple variations so you can pick what fits best.
+# ✉️ NeuralMail
 
-![Status](https://img.shields.io/badge/status-in%20development-blue)
-![Stack](https://img.shields.io/badge/stack-Flask%20%7C%20SQLite%20%7C%20Gemini%20API-informational)
+**AI-powered cold email generator that creates multiple variations so you can pick what fits best.**
 
-## Features
-- AI-generated email variations from a single prompt
-- User authentication with secure login and signup
-- Email history dashboard to track past generations
-- Lightweight analytics to monitor usage
-- Custom global alert system for consistent UI feedback
+<p>
+  <img src="https://img.shields.io/badge/Flask-94325C?style=for-the-badge&logo=flask&logoColor=FCF3FA" />
+  <img src="https://img.shields.io/badge/Tailwind%20CSS-3C1C11?style=for-the-badge&logo=tailwindcss&logoColor=E2B8CA" />
+  <img src="https://img.shields.io/badge/JavaScript-3B091E?style=for-the-badge&logo=javascript&logoColor=E2B8CA" />
+  <img src="https://img.shields.io/badge/SQLite-663840?style=for-the-badge&logo=sqlite&logoColor=FCF3FA" />
+  <img src="https://img.shields.io/badge/Gemini%20API-3B091E?style=for-the-badge&logo=googlegemini&logoColor=E2B8CA" />
+</p>
 
-## Tech Stack
+</div>
+
+## ✨ Features
+
+- 🤖 AI-generated email variations from a single prompt
+- 🔐 User authentication with secure login and signup
+- 📜 Email history dashboard to track past generations
+- 📊 Lightweight analytics to monitor usage
+- 🔔 Custom global alert system for consistent UI feedback
+
+## 🛠️ Tech Stack
+
 | Layer | Technology |
 |---|---|
 | Backend | Flask (Python) |
@@ -23,6 +35,8 @@
 | Database | SQLite |
 | AI | Gemini API |
 | Auth | Simple Login/Signup |
+
+---
 
 ## Screenshots
 ## Landing Page (Desktop)
