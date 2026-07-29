@@ -1,3 +1,6 @@
+<img width="1364" height="690" alt="image" src="https://github.com/user-attachments/assets/8d3958ec-b9ea-47f2-9edf-54db5f7f8231" />
+
+
 # NeuralMail
 
 > AI-powered cold email generator that creates multiple variations so you can pick what fits best.
