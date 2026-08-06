@@ -1,8 +1,6 @@
-flask
-flask-cors
-mysql-connector-python
-google-genai
+Flask
+Flask-Cors
 python-dotenv
-werkzeug
-pandas
-openpyxl
+google-genai
+psycopg2-binary
+Werkzeug

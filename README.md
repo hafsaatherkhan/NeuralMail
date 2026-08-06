@@ -39,6 +39,45 @@
 
 ---
 
+## 🚀 Installation & Setup
+
+Follow these steps to download and run the project locally.
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/hafsaatherkhan/NeuralMail.git
+cd NeuralMail
+```
+
+### 2. Create a Virtual Environment
+```bash
+python -m venv my_env
+# On Windows:
+my_env\Scripts\activate
+# On macOS/Linux:
+source my_env/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Setup Environment Variables
+Create a `.env` file in the root directory and add the following keys:
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+DATABASE_URL=your_postgresql_database_url_here
+```
+
+### 5. Run the Application
+```bash
+python app.py
+```
+The app will be live at `http://127.0.0.1:5000`.
+
+---
+
 ## Screenshots
 ## Landing Page (Desktop)
 <img width="1364" height="690" alt="image" src="https://github.com/user-attachments/assets/cc7397de-5aa5-4106-8c2d-14e12b90b220" />
