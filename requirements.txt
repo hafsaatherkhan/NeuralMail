@@ -4,3 +4,4 @@ python-dotenv
 google-genai
 psycopg2-binary
 Werkzeug
+gunicorn
