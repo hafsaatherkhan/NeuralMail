@@ -1,6 +1,6 @@
 // NeuralMail Frontend Auth - Connecting to Flask + MySQL Backend
 
-const API_BASE_URL = "http://127.0.0.1:5000/api"; // Aapka Python Flask Server Address
+const API_BASE_URL = "/api"; // Aapka Python Flask Server Address
 
 /**
  * 1. SIGNUP HANDLER
