@@ -1,1 +1,8 @@
 .env
+__pycache__/
+*.py[cod]
+*$py.class
+my_env/
+venv/
+neuralmail.db
+uploads/

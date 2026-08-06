@@ -55,6 +55,7 @@ def signup():
     password = data.get('password', '').strip()
     full_name = data.get('full_name', '').strip()
     company = data.get('company', 'Not Specified').strip()
+    role = data.get('role', 'Full Stack Developer').strip()
 
     # Input validation
     if not full_name:
@@ -70,7 +71,7 @@ def signup():
 
     hashed_password = generate_password_hash(password)
 
-    if db.create_user(full_name, company, email, hashed_password):
+    if db.create_user(full_name, company, email, hashed_password, role):
         return jsonify({"status": "success", "message": "Account created! Please log in."}), 201
     return jsonify({"message": "Something went wrong. Please try again in a moment."}), 500
 
@@ -164,7 +165,42 @@ def generate_email():
         error_str = str(e).lower()
 
         if "quota" in error_str or "resource_exhausted" in error_str or "429" in error_str or "rate" in error_str:
-            return jsonify({"message": "⚠️ AI quota limit reached. Your free-tier Gemini API key has been exhausted for today. Please wait 24 hours or upgrade your Google AI plan at aistudio.google.com."}), 429
+            fallback_email = """Subject: [Professional] Exploring Synergies with Your Team
+
+Hello,
+
+I have been following your company's recent developments and I am very impressed by your growth. At NeuralMail, we specialize in helping companies like yours **scale their outreach** and _optimize engagement_.
+
+Could we schedule a quick call next week to discuss how we might collaborate?
+
+**Looking forward to connecting.**
+###
+Subject: [Creative] Imagine a World Without Tedious Outreach
+
+Hi there,
+
+We know that crafting the perfect cold email feels like finding a needle in a haystack. We built NeuralMail because we were tired of the grind. Now, we help businesses **automate the heavy lifting** while keeping their messaging _authentically human_.
+
+I would love to show you how our tool can transform your workflow.
+
+**Let me know if you have 10 minutes this week!**
+###
+Subject: [Short] Boost Your Outreach Efficiency
+
+Hi,
+
+Are you looking for ways to **increase your team's efficiency**? Our platform helps you generate high-converting emails in seconds, with _zero hassle_.
+
+**Let me know if you're open to a 5-minute demo.**"""
+            
+            db.save_campaign_log(
+                user_id=user_id,
+                recipient=target_url,
+                subject="NeuralMail Multi-Draft (Fallback)",
+                content=fallback_email,
+                status="Generated (Fallback)"
+            )
+            return jsonify({"email_content": fallback_email}), 200
 
         if "api_key" in error_str or "api key" in error_str or ("invalid" in error_str and "key" in error_str):
             return jsonify({"message": "❌ Invalid API key. Please check your GEMINI_API_KEY in the .env file."}), 401

@@ -78,6 +78,12 @@
             </div>
 
             <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Role / Title</label>
+                <input type="text" placeholder="Full Stack Developer" id="roleInput"
+                    class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all text-sm mb-4">
+            </div>
+
+            <div>
                 <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Business Email</label>
                 <input type="email" placeholder="hafsa@developer.com" 
                     class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all text-sm">
@@ -87,7 +93,10 @@
                 <label class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Password</label>
                 <input type="password" placeholder="••••••••" 
                     class="w-full bg-surface-container border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none input-glow transition-all text-sm">
+                <p class="text-[10px] text-slate-500 mt-2 ml-1 font-medium">Password must be at least 6 characters long (letters and numbers recommended).</p>
             </div>
+            
+            <div id="error-message" class="hidden bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold rounded-xl p-3 text-center"></div>
 
             <div class="pt-2">
                 <button type="submit" class="w-full bg-primary text-on-primary font-black py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-xs">
@@ -117,8 +126,12 @@
         // Form se data uthana
         const fullName = document.querySelector('input[placeholder="Hafsa"]').value;
         const company = document.querySelector('input[placeholder="Tech Studio"]').value;
+        const role = document.getElementById('roleInput').value || 'Full Stack Developer';
         const email = document.querySelector('input[type="email"]').value;
         const password = document.querySelector('input[type="password"]').value;
+        
+        const errorDiv = document.getElementById('error-message');
+        errorDiv.classList.add('hidden');
 
         try {
             const response = await fetch('/api/signup', {
@@ -127,6 +140,7 @@
                 body: JSON.stringify({
                     full_name: fullName,
                     company: company,
+                    role: role,
                     email: email,
                     password: password
                 })
@@ -138,11 +152,13 @@
                 alert("Account Created Successfully!");
                 window.location.href = "/login"; // Redirect to login
             } else {
-                alert(data.error || "Signup failed!");
+                errorDiv.innerText = data.message || "Signup failed!";
+                errorDiv.classList.remove('hidden');
             }
         } catch (err) {
             console.error("Error:", err);
-            alert("Server connection failed!");
+            errorDiv.innerText = "Server connection failed!";
+            errorDiv.classList.remove('hidden');
         }
     }
 
